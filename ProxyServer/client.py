@@ -1,26 +1,27 @@
 # Include Python's Socket Library
 from socket import *
 
-# Define Server IP Address and Port
-serverName = 'localhost'
-serverPort = 12000
-# Build Server Address Using IP Address and Port
-serverAddress=(serverName, serverPort)
+# Specify Server Address
+serverName = '192.168.1.137'
+serverPort = 8080
 
-# Create UDP Socket for Client
-clientSocket = socket(AF_INET, SOCK_DGRAM)
+# Create TCP Socket for Client
+clientSocket = socket(AF_INET, SOCK_STREAM)
 
-# This is the message received from the keyboard
-message = input('Input lowercase sentence:')
+# Connect to TCP Server Socket
+clientSocket.connect((serverName,serverPort))
 
-# Message sent to the Server
-clientSocket.sendto(message.encode(), serverAddress)
+# Recieve user input from keyboard
+sentence = input('Input lowercase sentence:')
 
-# Read reply characters from socket into string
-modifiedMessage, serverAddress = clientSocket.recvfrom(2048)
+# Send! No need to specify Server Name and Server Port! Why?
+clientSocket.send(sentence.encode())
 
-# Print uot received string
-print(modifiedMessage.decode())
+# Read reply characters! No need to read address! Why?
+modifiedSentence = clientSocket.recv(1024)
 
-# Close the client socket
+# Print out the received string
+print ('From Server:', modifiedSentence.decode())
+
+# Close the socket
 clientSocket.close()
