@@ -2,7 +2,7 @@
 from socket import *
 
 # Specify Server Address
-serverName = '192.168.1.137'
+serverName = '10.0.0.62'
 serverPort = 8080
 
 # Create TCP Socket for Client
