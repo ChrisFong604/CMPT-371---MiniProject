@@ -1,12 +1,22 @@
-# Include Python's Socket Library
-import socket
+# Include Python's Socket Library, and flow control helper libraries
 import sys
+import socket
+import select
+import json
+import time
+import matplotlib.pyplot as plt
+import CongestionControl
+
+
 
 # Checking arguments
 if len(sys.argv) < 2:
     print("Required arguments missing!")
     print("Usage: sender <hostname> <port>")
     sys.exit(1)
+
+#Initialize congestion control object
+CControl = CongestionControl.CongestionStrategy(100, 1)
 
 #capture hostname and port
 serverName = sys.argv[1]
@@ -30,6 +40,8 @@ while True: # Loop forever
     
     # Read from socket
     string = connectionSocket.recv(1024).decode()
+    CongestionControl.CongestionStrategy.
+    cc.process_ack
     print(string)
     
     # Send the reply
